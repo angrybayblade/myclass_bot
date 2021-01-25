@@ -1,0 +1,5 @@
+*.ipynb
+*.json
+*.log
+.vscode
+.ipynb_checkpoints
