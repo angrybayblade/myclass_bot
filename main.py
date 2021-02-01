@@ -60,7 +60,9 @@ class ClassBot(webdriver.Chrome):
     def attend_class(self, cls):
         cls['class'].click()
         self.find_element_by_xpath(self.JOINxPATH).click()
-        return
+        while int(time.strftime("%M")):
+            print (f"Attending {cls['class']}")
+            time.sleep(5)
 
     def mainloop(self,):
         while True:
@@ -71,16 +73,19 @@ class ClassBot(webdriver.Chrome):
             if ts_h in time_table:
                 ts_h = time_table[ts_h]
                 for m in ts_h:
-                    return self.attend_class(ts_h[m])
+                    self.attend_class(ts_h[m])
 
             elif (pv_h in time_table):
                 ts_h = time_table[pv_h]
                 for m in ts_h:
                     if m > 50:
-                        return self.attend_class(ts_h[m])
+                        self.attend_class(ts_h[m])
             else:
                 print(f"No Class At : {(ts_h,ts_m)}")
             time.sleep(self.delay)
 
+            if not (ts_m % 5) or not (ts_m % 57):
+                self.open_time_table()
+
 if __name__ == '__main__':
-    ClassBot().login().open_time_table().mainloop()
+    ClassBot(delay=60).login().open_time_table().mainloop()
