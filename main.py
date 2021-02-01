@@ -60,7 +60,7 @@ class ClassBot(webdriver.Chrome):
     def attend_class(self, cls):
         cls['class'].click()
         self.find_element_by_xpath(self.JOINxPATH).click()
-        while int(time.strftime("%M")):
+        while int(time.strftime("%M")) != 59:
             print (f"Attending {cls['class']}")
             time.sleep(5)
 
